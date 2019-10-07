@@ -1,0 +1,27 @@
+.dialogs {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.interlocutors {
+    width: 40%;
+}
+
+.interlocutor  {
+    display: inline-block;
+    padding: 10px;
+    text-decoration: none;
+    color: blue
+}
+
+.interlocutor.active  {
+    color: red;
+}
+
+.messages {
+    width: 60%;
+}
+
+.message {
+    padding: 10px;
+}
