@@ -25,3 +25,20 @@
 .message {
     padding: 10px;
 }
+
+.addPost {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+    margin-left: 60px;
+    text-align: left;
+}
+
+.textarea {
+    width: 200px;
+    height: 70px;
+}
+
+.btn {
+    margin-left: 15px;
+}

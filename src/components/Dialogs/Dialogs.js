@@ -1,41 +1,51 @@
 import React from 'react';
 import style from './Dialogs.module.css';
-import  {NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
+import {messageCreator, sendMessageCreator} from '../../redux/dialogs-reducer';
 
-const dataInterlocutors = [
-    {id: 1, name: 'Max'},
-    {id: 2, name: 'Nadya'},
-    {id: 3, name: 'Oleg'},
-    {id: 4, name: 'Joanna'},
-    {id: 5, name: 'Mark'}
-]
+const Dialogs = (props) => {
 
-const Interlocutor = (props) => {
-    return (
-        <NavLink to={'/dialogs/' + props.id} className={style.interlocutor + ' ' + props.class}>{props.name}</NavLink>
-    )
-}
+    const newPost = React.createRef();
 
-const interlocutorItems = dataInterlocutors.map(e => <Interlocutor name = {e.name} id = {e.id}/>)
+    const changeText = () => {
+        let text = newPost.current.value;
+        props.dispatch(messageCreator(text));
+    }
 
-const Message = (props) => {
-    return (
-        <div className = {style.message}>{props.text}</div>
-    )
-}
+    const sendMessage = () => {
+        let text = newPost.current.value;
+        props.dispatch(sendMessageCreator(text));
+    }
 
-const Dialogs = () => {
+    const Interlocutor = (props) => {
+        return (
+            <div>
+                <NavLink to={'/dialogs/' + props.id} className={style.interlocutor + ' ' + props.class}>{props.name}</NavLink>
+            </div>
+        )
+    }
+    const interlocutorItems = props.state.pageDialogs.dialogs.map(e => <Interlocutor name = {e.name} id = {e.id}/>)
+
+    const Message = (props) => {
+        return (
+            <div id = {props.id} className = {style.message}>{props.message}</div>
+        )
+    }
+    const messageItems = props.state.pageDialogs.messages.map(e => <Message message = {e.message} id = {e.id} />)
+
     return (
         <div className = {style.dialogs}>
             <div className = {style.interlocutors}>
                 {interlocutorItems}
             </div>
+
             <div className = {style.messages}>
-                <Message text = 'Hello World!' />
-                <Message text = 'Hi how are you?' />
-                <Message text = 'What are you do?' />
-                <Message text = 'She is sexy!' />
-                <Message text = 'YO' />
+                {messageItems}
+            </div>
+
+            <div className = {style.addPost}>
+                <textarea value = {props.state.pageDialogs.textAreaText} onChange = {changeText} className = {style.textarea} ref = {newPost}></textarea>
+                <button className = {style.btn} onClick = {sendMessage}>Add post</button>
             </div>
         </div>
     )

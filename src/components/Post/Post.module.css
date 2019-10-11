@@ -1,0 +1,9 @@
+.post {
+    display: flex;
+    margin-top: 20px;
+    margin-left: 60px;
+}
+
+.wrapper {  
+    margin-left: 20px;
+}
