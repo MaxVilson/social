@@ -2,9 +2,9 @@ import React from 'react';
 import styles from './App.module.css';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
-import Profile from '../Profile/Profile';
-import Dialogs from '../Dialogs/Dialogs';
+import DialogsContainer from '../Dialogs/DialogsContainer';
 import {Route, BrowserRouter} from 'react-router-dom';
+import ProfileContainer from '../Profile/ProfileContainer';
 
 function App(props) {
   return (
@@ -14,8 +14,8 @@ function App(props) {
         <div className = {styles.wrapper}>
           <Sidebar />
           <main className = {styles.content}>
-            <Route path='/profile' render = { () => <Profile state={props.state} dispatch={props.dispatch} /> } />
-            <Route path='/dialogs' render = { () => <Dialogs state={props.state} dispatch={props.dispatch}/> } />
+            <Route path='/profile' render = { () => <ProfileContainer store={props.store} /> } />
+            <Route path='/dialogs' render = { () => <DialogsContainer store={props.store} /> } />
           </main>
         </div>
       </div>

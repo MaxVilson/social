@@ -45,7 +45,7 @@ const store = {
 
     },
 
-    observer(observer) {
+    subscribe(observer) {
         this.renderDom = observer;
     }    
 }
