@@ -13,6 +13,9 @@ const MainNav = () => {
                     <NavLink to='/dialogs' className={style.link} activeClassName={style.linkActive}>Messages</NavLink>
                 </li>
                 <li className = {style.item}>
+                    <NavLink to='/users' className={style.link} activeClassName={style.linkActive}>Users</NavLink>
+                </li>
+                <li className = {style.item}>
                     <a className={style.link}>News</a>
                 </li>
                 <li className = {style.item}>

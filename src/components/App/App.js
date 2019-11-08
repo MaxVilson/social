@@ -1,10 +1,11 @@
 import React from 'react';
+import {Route, BrowserRouter} from 'react-router-dom';
 import styles from './App.module.css';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
-import DialogsContainer from '../Dialogs/DialogsContainer';
-import {Route, BrowserRouter} from 'react-router-dom';
 import ProfileContainer from '../Profile/ProfileContainer';
+import DialogsContainer from '../Dialogs/DialogsContainer';
+import UsersContainer from '../Users/UsersContainer';
 
 function App(props) {
   return (
@@ -16,6 +17,7 @@ function App(props) {
           <main className = {styles.content}>
             <Route path='/profile' render = { () => <ProfileContainer store={props.store} /> } />
             <Route path='/dialogs' render = { () => <DialogsContainer store={props.store} /> } />
+            <Route path='/users' render = { () => <UsersContainer store={props.store} /> } />
           </main>
         </div>
       </div>

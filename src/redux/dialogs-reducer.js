@@ -59,18 +59,20 @@ const initialState = { // Добавляем начальный state в наш 
 
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SENDMESSAGE':
-            const message = {
-                id: 6,
-                message: action.text
+        case 'SENDMESSAGE': {
+            return {
+                ...state,
+                messages: [...state.messages, {id: 6, message: action.text}],
+                textAreaText: ''
             }
-            state.messages.push(message);
-            state.textAreaText = '';
-            return state;
+        }
 
-        case 'CHANGEMESSAGETEXT':
-            state.textAreaText = action.text;
-            return state;
+        case 'CHANGEMESSAGETEXT': {
+            return {
+                ...state,
+                textAreaText: action.text
+            }
+        }
 
         default:
             return state;

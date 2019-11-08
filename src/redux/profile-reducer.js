@@ -32,19 +32,18 @@ const initialState = { // Добавляем начальный state в наш 
 
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'ADDPOST':
-            const post = {
-                id: 4,
-                text: action.text,
-                likes: 0
-            };
-            state.posts.push(post);
-            state.textAreaText = '';
-            return state;
+        case 'ADDPOST': {
+            return {
+                posts: [...state.posts, {id: 4, text: action.text, likes: 0}]
+            }
+        }
 
-        case 'CHANGETEXT':
-            state.textAreaText = action.text;
-            return state;
+        case 'CHANGETEXT': {
+            return {
+                ...state,
+                textAreaText: action.text
+            }
+        }
 
         default:
             return state;
