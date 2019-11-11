@@ -1,20 +1,24 @@
 // Создаем компонент контейнер, которая будет оберткой для нашей презентационной компоненты, контейнерная компонента будет иметь доступ к store, а презентационная нет. Здесь мы создаем функции из данных store которые нужны презентационной компоненте. 
 import React from 'react';
-import { followAC, unfollowAC, setUsersAC, setCurrentPageAC, setUsersTotalCountAC } from '../../redux/users-reducer';
+import { followAC, unfollowAC, setUsersAC, setCurrentPageAC, setUsersTotalCountAC, toggleIsFetchingAC } from '../../redux/users-reducer';
 import Users from './Users';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
 class UsersContainer extends React.Component {
     componentDidMount() {
+        this.props.toggleIsFetching(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(res => {
+            this.props.toggleIsFetching(false);
             this.props.setUsers(res.data.items);
         })
     }
 
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
+        this.props.toggleIsFetching(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(res => {
+            this.props.toggleIsFetching(false);
             this.props.setUsers(res.data.items);
         })
     }
@@ -28,6 +32,7 @@ class UsersContainer extends React.Component {
                     follow = {this.props.follow}
                     unfollow = {this.props.unfollow}
                     currentPage = {this.props.currentPage}
+                    isFetching = {this.props.isFetching}
                 />
     }
 }
@@ -37,7 +42,8 @@ const mapStateToProps = (state) => { // Функция которая перед
         users: state.pageUsers.users,
         pageSize: state.pageUsers.pageSize,
         totalUsersCount: state.pageUsers.totalUsersCount,
-        currentPage: state.pageUsers.currentPage
+        currentPage: state.pageUsers.currentPage,
+        isFetching: state.pageUsers.isFetching
     }
 }
 const mapDispatchToProps = (dispatch) => { // Функция которая передает в dispatch функции
@@ -56,6 +62,9 @@ const mapDispatchToProps = (dispatch) => { // Функция которая пе
         },
         setUsersTotalCount: (count) => {
             dispatch(setUsersTotalCountAC(count));
+        },
+        toggleIsFetching: (bool) => {
+            dispatch(toggleIsFetchingAC(bool));
         }
     }
 }

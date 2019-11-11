@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Users.module.css';
 import avatar from '../../assets/images/avatar.png';
+import Preloader from '../Preloader/Preloader';
 
 const Users = (props) => {
 
@@ -26,6 +27,8 @@ const Users = (props) => {
                     })
                 }
             </div>
+
+            { props.isFetching ? <Preloader /> : '' }
 
             {
                 props.users.map((user) => {
